@@ -20,6 +20,9 @@ In the part 2 project project i added LEDs and created a 'ON' and 'OFF' system w
      - Focus (1)
      - Relax (0)
 
+     IMAGE FOCUS ![alt text](FOCUS.jpeg)
+     IMAGE RELAX ![alt text](RELAX.jpeg)
+
 3. **Computer Vision**
    - Uses OpenCV
    - Detects face using Haar Cascade
@@ -28,6 +31,28 @@ In the part 2 project project i added LEDs and created a 'ON' and 'OFF' system w
 
 4. ** Real-Time Graph **
    - Matplotlib displays live EEG signal(simulated)
+     GRAPH ![alt text](GRAPH.jpeg)
+
+## Project Architecture
+
+```mermaid
+flowchart TD
+    A[Simulated EEG Signal Input] --> B[NumPy Signal Generation]
+    B --> C[Feature Extraction]
+    C --> D[Random Forest Classifier]
+    D --> E{Mental State?}
+    E -- Focus --> F[OpenCV Facial Input]
+    E -- Relax --> F
+    F --> G[Combined Decision Logic]
+    G --> H[Python Serial pyserial]
+    H --> I[Arduino Uno]
+    I --> J[Device Control Output]
+```
+
+## Parameters
+
+| Model Accuracy | 100% (simulated data) |
+| Note | Signals are synthetically generated with distinct frequency profiles per class |
 
 
 ## Hardware Used
@@ -44,8 +69,6 @@ In the part 2 project project i added LEDs and created a 'ON' and 'OFF' system w
 - Arduino IDE
 
 
-## Project Structure
-
 ## How to Run
 
 ### 1. Upload Arduino Code
@@ -58,7 +81,7 @@ pip install numpy ,matplotlib, scikit-learn ,opencv-python ,pyserial
 # Controls
 
 Press 'q' to exit the program in the web cam
-
+  
 
 # Features
 
@@ -72,8 +95,7 @@ Webcam-based state detection
 
 Arduino hardware control
 
-# Limitations
+## Limitations
 
-EEG signals are simulated (not real brain signals)
-
-Face detection is used as a simple trigger, not actual brain sensing
+- Model achieves 100% accuracy on simulated data due to mathematically distinct signal patterns
+- Real EEG data would require more complex feature extraction and lower accuracy is expected
